@@ -1,12 +1,53 @@
+<!DOCTYPE html>
 <html>
 <head>
 </head>
 <body>
   <p>Calendar Project Version 1.0</p>
   <table>
-    <tr><td>Start Date</td><td><input/></td></tr>
-    <tr><td>Number of days</td><td><input/></td></tr>
-    <tr><td>Country code</td><td><input/></td></tr>
+    <tr><td>Start Date</td><td><input id="start_date" type="date"/></td></tr>
+    <tr><td>Number of days</td><td><input id="n_days" type="number"/></td></tr>
+    <tr><td>Country code</td><td><input =id="contry_code"/></td></tr>
   </table>
+  <input type="submit" value="Render" onclick="renderCalendar();"/>
+
+  <p id="calendar"></p>
+
+
 </body>
+<script>
+    function renderCalendar(){
+      var a_last_day_month = [31,29,31,30,31,30,31,31,30,31,30,31];
+      var v_p = document.getElementById("calendar");
+      var v_start_date = document.getElementById("start_date").value;
+      //var d = new Date(2018,1,1);
+      var d = new Date(v_start_date);
+      var first_d = new Date(d.getFullYear(), d.getMonth(), 1);
+      //var first_d = v_start_date;
+      var start = 0;
+      var count = 1;
+      var s_table = "<table><tr><td>S</td><td>M</td><td>T</td><td>W</td><td>T</td><td>F</td><td>S</td></tr>";
+      for(i=0;i<6;i++){
+        s_table = s_table + "<tr>";
+        for(j=0;j<7;j++){
+          if( i== 0 && j == first_d.getDay()){
+            start = 1;
+          }
+          if(start == 1){
+            s_table = s_table + "<td>" + count + "</td>";
+            count++;
+          } else {
+            s_table = s_table + "<td>" + "</td>";
+          }
+          if(count == a_last_day_month[d.getMonth()] + 1){
+            start = 0;
+          }
+        }
+        s_table = s_table + "</tr>"
+      }
+      s_table = s_table + "</table>"
+      v_p.innerHTML = s_table; ///s_table
+    }
+
+</script>
 </html>
